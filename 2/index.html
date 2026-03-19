@@ -1,1 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 👇 웹 브라우저 탭에 표시될 파비콘(Favicon) 설정 👇 -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/kimazang/kimazang.github.io/main/qp_favicon.png">
+    
+    <!-- 👇 카카오톡, 디스코드, 페이스북 등 링크 공유 시 뜨는 미리보기(임베드) 설정 👇 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="누비 친구를 소개합니다! | 체리호랑해 편">
+    <meta property="og:description" content="큐플레이 아카이브 두 번째 눕친소 인터뷰, 늦덕러 체리호랑해의 좌충우돌 복귀기!">
+    <!-- 미리보기 썸네일 (100% 로드되도록 raw 주소 사용) -->
+    <meta property="og:image" content="https://raw.githubusercontent.com/kimazang/noob/main/2/noob_2_th.png">
 
+    <title>Qplay 누비 친구를 소개합니다!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        /* 픽셀 폰트는 포인트로만 사용 */
+        @font-face {
+            font-family: 'DungGeunMo';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-attachment: fixed;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Y2K 감성 배경 그리드 */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 105, 180, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 105, 180, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .pixel-font { font-family: 'DungGeunMo', sans-serif; }
+
+        /* 유리 질감 (Glassmorphism) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+        }
+
+        /* 홀로그램/크롬 텍스트 효과 */
+        .chrome-text {
+            background: linear-gradient(to bottom, #fff 0%, #a4b4cb 40%, #5f6e85 50%, #b8c6df 60%, #fff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+        }
+
+        .neon-text-pink {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 40px #ff00de, 0 0 80px #ff00de;
+        }
+
+        .neon-text-blue {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff;
+        }
+
+        /* 사진 컨테이너 */
+        .avatar-img-wrapper {
+            width: 140px;
+            height: 180px;
+            border-radius: 16px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            background-color: #1a1a2e;
+        }
+        .avatar-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 빛 반사 효과 (카드) */
+        .glare::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(125deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        
+        /* 둥둥 떠다니는 애니메이션 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating { animation: float 4s ease-in-out infinite; }
+        .floating-delay { animation: float 4s ease-in-out infinite; animation-delay: 2s; }
+
+        /* 별빛 은하수 구분선 */
+        .star-divider {
+            text-align: center;
+            position: relative;
+            margin: 4rem 0;
+        }
+        .star-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,105,180,0.5), transparent);
+        }
+        .star-divider span {
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+            color: #ff69b4;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #ff69b4;
+            background: transparent;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-grid"></div>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 md:py-20 relative">
+        
+        <!-- Y2K 별 장식 -->
+        <div class="absolute top-10 left-10 text-4xl neon-text-pink opacity-50 pixel-font floating">★</div>
+        <div class="absolute top-40 right-20 text-3xl neon-text-blue opacity-50 pixel-font floating-delay">✧</div>
+
+        <!-- 헤더 영역 -->
+        <header class="text-center mb-20 relative z-10">
+            <div class="inline-block px-4 py-1 rounded-full border border-pink-400 text-pink-400 text-sm font-bold tracking-widest mb-4 pixel-font glass-panel">
+               NEWBIE INTERVIEW : VOL.02
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black chrome-text mb-6 pixel-font tracking-tighter">
+                KIMAZANG <br class="block md:hidden"> Q-MAGAZINE
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-blue-200 tracking-wide">
+                눕친소, 두 번째 게스트 <strong class="font-bold text-white neon-text-pink">체리호랑해</strong>
+            </p>
+        </header>
+
+        <!-- 프로필 하이라이트 섹션 -->
+        <section class="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-24 mb-24 relative z-10">
+            
+            <!-- 아장 프로필 카드 -->
+            <div class="relative glass-panel p-4 pb-6 w-64 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] glare floating">
+                <div class="bg-gray-900 rounded-2xl p-2 mb-4">
+                    <div class="avatar-img-wrapper mx-auto">
+                        <img src="https://raw.githubusercontent.com/kimazang/noob/main/2/noob_2_az.png" alt="아장 프로필" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'180\'><rect width=\'140\' height=\'180\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' fill=\'white\' font-size=\'14\' text-anchor=\'middle\' dy=\'.3em\'>이미지 오류</text></svg>'">
+                        <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">INTERVIEWER</span>
+                    <h2 class="text-2xl font-black tracking-wide text-white">🌹아장</h2>
+                    <p class="text-gray-400 text-sm mt-1">침투부로 세븐틴 배움</p>
+                </div>
+            </div>
+
+            <!-- VS 마크 -->
+            <div class="text-5xl md:text-7xl font-black italic text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-purple-600 filter drop-shadow-[0_0_15px_rgba(255,105,180,0.8)] pixel-font z-0">
+                MEET
+            </div>
+
+            <!-- 체리호랑해 프로필 카드 -->
+            <div class="relative glass-panel p-4 pb-6 w-64 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,0,0,0.5)] glare floating-delay">
+                <div class="bg-gray-900 rounded-2xl p-2 mb-4">
+                    <div class="avatar-img-wrapper mx-auto">
+                        <img src="https://raw.githubusercontent.com/kimazang/noob/main/2/noob_2_ch.png" alt="체리호랑해 프로필" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'180\'><rect width=\'140\' height=\'180\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' fill=\'white\' font-size=\'14\' text-anchor=\'middle\' dy=\'.3em\'>이미지 오류</text></svg>'">
+                        <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">GUEST</span>
+                    <h2 class="text-2xl font-black tracking-wide text-white">체리호랑해</h2>
+                    <p class="text-gray-400 text-sm mt-1">세븐틴 때문에 침투부 봄</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 인터뷰 본문 영역 -->
+        <section class="max-w-4xl mx-auto space-y-10 relative z-10">
+            
+            <div class="glass-panel p-6 md:p-14 relative overflow-hidden">
+                <!-- 배경 장식 글로우 -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-20 left-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <h3 class="text-2xl md:text-3xl font-bold mb-12 text-center text-pink-300 pixel-font border-b border-white/20 pb-6 relative z-10">
+                    [ INTERVIEW LOG ]
+                </h3>
+
+                <div class="relative z-10 text-lg md:text-xl font-light">
+                    
+                    <!-- Topic 1: 소개 및 닉네임 -->
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                <누비 친구를 소개합니다> 일명 '눕친소' 두 번째 시간입니다. 다행히 폐지가 안 되어 두 번째 게스트를 모시겠습니다! 간단한 자기소개 부탁드릴게요! 🎤✧
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                안녕하세요! 친동생 추천으로 그때 그 시절 큐플레이를 다시 시작하게 된 <strong class="text-white font-bold">체리호랑해</strong>입니다. 정확히 올해 3월 2일에 시작해서 재밌게 즐기고 있어요! 직업 특성상 접속 시간은 들쭉날쭉하지만, 큐플에서 만나면 잘 부탁드려요! 🙇‍♀️
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                뉴비 분들은 닉네임이 두 글자가 아닌 점이 큰 특징인 거 같아요. <span class="text-pink-300">‘체리호랑해’</span>는 무슨 뜻인가요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                앗, 제가 나이 먹고 세븐틴에 늦덕으로 입덕해서요... 최애 멤버가 에스쿱스와 호시인데, 그 두 명의 별명과 애칭을 합쳐서 만들었어요. <strong class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-400 font-bold mr-1">에스쿱스가 체리이고, 호시가 호랑입니다!</strong> 뭐든 편하게 불러주세요. 🍒🐯
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                가입하신지 2주 정도 지났는데, 닉네임에 후회는 없으신가요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                후회는 전혀 없어요! 오히려 이 닉네임 덕분에 게임할 때 세븐틴 팬분들이 먼저 알아봐 주시고 인사해 주셔서 세븐틴 덕을 보고 있어요! 그래도 남들 따라 두 글자 부캐를 만들어 두긴 했는데, 그것도 세븐틴 관련된 거긴 해요!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="star-divider"><span>✧ ✧ ✧</span></div>
+
+                    <!-- Topic 2: 혈육 버프 및 플레이 스타일 -->
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                동생분 추천으로 시작하셨으면, 게임하면서 이른바 ‘혈육 버프’가 좀 있었나요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <div class="text-gray-200 leading-relaxed space-y-4">
+                                <p>완전 커요! 오랜만에 추억에 젖어서 하다 보니 그 시절 옷과 머리가 너무 갖고 싶어지더라고요.</p>
+                                <p>동생에게 ‘울트라 셋’ 사달라고 조르니까, <strong class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-300 font-bold">20레벨 찍으면 사준다길래 정말 열심히 렙업했어요. 결국 선물 받아냈습니다!</strong> 금전적인 것뿐만 아니라, 동생의 큐친분들도 반갑게 맞아주시고 문제도 쏴주셔서 도움을 엄청 많이 받고 있어요. 💙</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                와, 든든한 지원군이네요! 게임도 동생분과 주로 하시구요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                네~ 시간이 맞을 때는 동생이 있는 방만 졸졸 따라다니고 있어요. 👯‍♀️
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                닉네임도 그렇고 동생분과 노는 것도 그렇고, 체리 님은 랜선자아가 따로 없는 것 같아요!
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                맞아요! 저는 게임이랑 현실에서의 모습이 거의 똑같아요. 오히려 가끔은 너무 사적인 얘기를 말했나 아차 싶을 때도 있어요. 😂
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="star-divider"><span>✧ ✧ ✧</span></div>
+
+                    <!-- Topic 3: 삼총사 길드 창설 스토리 -->
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                동생분 말고, 큐플 안에서 새롭게 사귄 인연도 있나요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                네, 저만의 큐친들도 있어요! 가입 첫 날 원카드에서 우연히 만난 분들과 계속 놀다 보니 마음이 너무 잘 맞아서 급속도로 친해졌어요. <span class="text-pink-300">그런데 귓속말을 따로따로 하기가 너무 번거로운 거예요.</span> 길드 채팅으로 한 번에 수다 떨고 싶어서 홧김에 길드를 만들었어요! 길드명도 ‘삼총사’라고 지었어요. 딱 세 명이서 노는 목적으로요!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 하이라이트 인용구 (Glossy 텍스트) -->
+                    <div class="py-12 my-12 text-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/10 to-transparent blur-xl"></div>
+                        <p class="text-2xl md:text-3xl font-bold italic relative z-10 leading-snug">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-yellow-300">귓말 따로 하기가 너무 번거로워서<br class="block md:hidden">
+                            <span class="hidden md:inline"> </span>홧김에 50만 사이버머니 플렉스!<br>
+                            그렇게 소중한 인연 ‘삼총사’가<br class="block md:hidden">
+                            <span class="hidden md:inline"> </span>탄생했습니다</span> <span class="not-italic">🍒⚔️</span>
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                귓말이 귀찮아서 길드를 만들다니, 정말 남다른 뉴비입니다. 친동생에 삼총사까지, 심심할 틈이 없으시겠어요. 앞으로도 큐친들을 많이 사귀고 싶으신가요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                음... 당분간은 무리해서 인연을 늘리기보다는, 지금 제 곁에 있는 소중한 분들과 재미있게 노는 데 집중하고 싶어요!
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                엄청 외향적이셔서 의외의 답변으로 느껴져요! 특별한 이유가 있을까요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                랜선 세상은 워낙 다양한 분들이 모이는 곳이잖아요. 아직 뉴비라 적응하는 단계이기도 하고, 무작정 관계를 넓히기보다는 조금 조심스럽게 다가가고 싶은 마음이 커요. 지금 함께하는 친구들이 워낙 잘 맞기도 하고요! 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="star-divider"><span>✧ ✧ ✧</span></div>
+
+                    <!-- Topic 4: 목표 및 마무리 -->
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                큐친은 충분하다면, 앞으로의 목표가 궁금해요.
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                단기적인 목표는 <strong class="text-cyan-300">사파이어 찍기!</strong> 예전에 큐플레이 할 때도 엄청난 라이트 유저라서 사파이어조차 못 달아봤거든요. 이번엔 사파이어를 다는 게 목표고요. 나중에는 에메랄드, 루비, 다이아몬드, 휘장까지 쭉쭉 올라가 보고 싶어요!<br><br>
+                                그리고 장기적으로는, 지금은 구하기 힘든 '바이템'이 되었다고 하던데 <strong class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-300 font-bold">왕관이랑 웨딩드레스를 너무 갖고 싶어요!</strong> 언젠간 가질 수 있을까요? 거래 제한 좀 풀렸으면 좋겠어요! 👑👗
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                목표도 정말 확실하시네요! 이렇게 열정적으로 하던 게임을 갑자기 접는다면, 이유가 뭘까요?
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10 mb-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                아... 제가 사실 확 불타올랐다가 불이 확 꺼지는 스타일이거든요. 지금은 레벨업에 미쳐있지만, 열렙하다가 지쳐버리면 어느 순간 훅 나가떨어질지도 몰라요. 😅
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-start mb-3">
+                            <span class="text-cyan-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(34,211,238,0.8)] mt-[-4px]">Q.</span>
+                            <h4 class="font-bold text-blue-100 leading-relaxed">
+                                속도 조절하면서 평생 큐접 안 하시길 기도하겠습니다! 마지막으로 큐플 유저분들께 하고 싶은 말씀 자유롭게 남겨주세요! 💌
+                            </h4>
+                        </div>
+                        <div class="flex items-start pl-2 md:pl-10">
+                            <span class="text-pink-400 font-black pixel-font text-3xl mr-4 drop-shadow-[0_0_10px_rgba(244,114,182,0.8)] mt-[-4px]">A.</span>
+                            <p class="text-gray-200 leading-relaxed">
+                                넷상이라도 서로 상처 주지 말고 즐거운 큐플레이가 되었으면 좋겠어요! <span class="text-pink-300 font-bold">사실 지금 다 같이 ‘꼬로록’ 하면서 수다 떠는 것만으로도 너무 재밌거든요.</span> 예전에 입었던 아이템 구경하는 것도 진짜 추억 돋고요. 다른 분들도 저처럼 <strong class="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-purple-300 font-bold mr-1">그 시절 감성을 듬뿍 느끼면서 행복하게 게임하셨으면 좋겠습니다!</strong><span style="-webkit-text-fill-color: initial; color: initial;">🍀✨</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 아장의 생각 (Editor's Note) -->
+            <div class="glass-panel p-6 md:p-10 relative overflow-hidden mt-12 border-2 border-cyan-500/30 shadow-[0_0_30px_rgba(34,211,238,0.15)] bg-[#0f0c29]/40">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 relative z-10">
+                    <!-- 아장 프로필 -->
+                    <div class="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 rounded-full overflow-hidden border-[3px] border-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.6)] bg-white">
+                        <img class="w-full h-full object-cover" src="https://raw.githubusercontent.com/kimazang/kimazang.github.io/main/azang_pro.png" alt="아장" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'><rect width=\'100\' height=\'100\' fill=\'%23333\'/><text x=\'50%\' y=\'50%\' font-family=\'sans-serif\' fill=\'white\' font-size=\'12\' text-anchor=\'middle\' dy=\'.3em\'>아장</text></svg>'">
+                    </div>
+                    <!-- 코멘트 내용 -->
+                    <div class="text-center md:text-left flex-1 pt-2">
+                        <div class="text-3xl md:text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400 filter drop-shadow-[0_0_10px_rgba(34,211,238,0.6)] pixel-font mb-4 tracking-widest uppercase">
+                            AZANG'S NOTE
+                        </div>
+                        <p class="text-gray-200 leading-relaxed text-base md:text-lg break-keep">
+                          아장이가 정말 좋아하는 큐친의 친언니! 1년 넘게 지켜본 동생과는 완전(?) 다른 성격이라 신선했어요. 역시 자매는 닮은 듯하면서도 상반된 매력이 있다니까. <br>
+                          <span class="text-cyan-300 font-bold">지허브 쓰겠다고 마우스까지 새로 장만하고, 이제는 모바일로도 접속해서 열렙하는 그야말로 우등생 뉴비랍니다.</span><br>
+                          번아웃 오지 말고 큐플에서 오래오래 함께했으면 좋겠어요~ 핑~하고 마무리해~
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 하단 장식 뱃지 -->
+        <div class="mt-20 flex justify-center gap-6 relative z-10">
+            <div class="glass-panel px-6 py-2 rounded-full text-sm font-bold tracking-widest text-pink-300 pixel-font flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+                QPLAY ARCHIVE
+            </div>
+            <div class="glass-panel px-6 py-2 rounded-full text-sm font-bold tracking-widest text-blue-300 pixel-font">
+                KIMAZANG
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
