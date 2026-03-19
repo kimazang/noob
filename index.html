@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Q-MAGAZINE : 누비 친구를 소개합니다!</title>
+    <title>KIMAZANG : 누비 친구를 소개합니다!</title>
     <meta property="og:title" content="Q-MAGAZINE : 눕친소 메인">
     <meta property="og:description" content="큐플레이 아카이브 뉴비 인터뷰 매거진">
+    <meta property="og:image" content=""> <!-- 미리보기 사진 비워둠 -->
+    
+    <!-- 파비콘 적용 -->
+    <link rel="icon" href="https://github.com/kimazang/kimazang.github.io/blob/main/qp_favicon.png?raw=true">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
@@ -54,18 +58,19 @@
             border-radius: 24px;
         }
 
-        /* 홀로그램/크롬 텍스트 효과 */
+        /* 크롬 텍스트 (서브 타이틀용으로 축소) */
         .chrome-text {
             background: linear-gradient(to bottom, #fff 0%, #a4b4cb 40%, #5f6e85 50%, #b8c6df 60%, #fff 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
         }
 
-        .neon-text-pink { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 40px #ff00de; }
-        .neon-text-blue { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
+        /* 네온 텍스트 효과 눈부심 완화 (수정됨) */
+        .neon-text-pink { text-shadow: 0 0 5px rgba(255,0,222,0.8), 0 0 10px rgba(255,0,222,0.5); }
+        .neon-text-blue { text-shadow: 0 0 5px rgba(0,255,255,0.8), 0 0 10px rgba(0,255,255,0.5); }
 
         /* 사진 컨테이너 */
         .avatar-img-wrapper {
@@ -169,25 +174,27 @@
         <div class="absolute top-60 right-4 md:right-10 text-5xl neon-text-blue opacity-40 pixel-font floating-delay">🎮</div>
         <div class="absolute bottom-40 left-10 text-3xl neon-text-pink opacity-40 pixel-font floating-delay">✧</div>
 
-        <!-- 헤더 영역 -->
+        <!-- 헤더 영역 (우선순위 변경) -->
         <header class="text-center mb-16 relative z-10">
-            <h1 class="text-7xl md:text-9xl font-black chrome-text mb-4 pixel-font tracking-tighter">
-                Q-MAGAZINE
-            </h1>
-            <p class="text-2xl md:text-3xl font-bold text-white tracking-widest pixel-font mt-2">
-                <span class="text-pink-400">누</span>비 <span class="text-blue-400">친</span>구를 <span class="text-purple-400">소</span>개합니다!
+            <!-- 기존 메인 타이틀 자리에 있던 Q-MAGAZINE을 서브로 변경 -->
+            <p class="text-xl md:text-2xl font-bold chrome-text tracking-widest pixel-font mb-4">
+                KIMAZANG Q-MAGAZINE
             </p>
+            <!-- 눕친소 텍스트를 메인 타이틀로 엄청 크게 강조 -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white pixel-font tracking-tighter drop-shadow-xl">
+                <span class="text-pink-400">누</span>비 <span class="text-blue-400">친</span>구를<br class="md:hidden"> <span class="text-purple-400">소</span>개합니다!
+            </h1>
         </header>
 
-        <!-- 최신 인터뷰 하이라이트 (Hero Section) -->
+        <!-- 최신 인터뷰 하이라이트 (Hero Section - 체리호랑해) -->
         <section class="mb-20 relative z-10">
             <div class="flex items-center gap-4 mb-6">
                 <span class="text-pink-400 pixel-font text-2xl">⚡ LATEST</span>
                 <div class="h-px bg-gradient-to-r from-pink-400 to-transparent flex-grow"></div>
             </div>
 
-            <!-- 클릭 시 1회 인터뷰 파일(예: vol_1.html)로 이동하게 링크를 설정하세요 -->
-            <a href="vol_1.html" class="block group">
+            <!-- 체리호랑해 링크 적용 -->
+            <a href="https://kimazang.github.io/noob/2" class="block group">
                 <div class="glass-panel p-1 border-pink-500/30 card-hover relative overflow-hidden">
                     <!-- NEW 뱃지 -->
                     <div class="absolute top-4 right-4 bg-pink-500 text-white pixel-font px-3 py-1 rounded-full text-sm font-bold z-20 animate-pulse shadow-[0_0_10px_#ff00de]">
@@ -198,28 +205,28 @@
                         <!-- 이미지 영역 -->
                         <div class="md:w-2/5 relative p-6 flex justify-center items-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')]">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-0"></div>
-                            <!-- 1회 게스트 썸네일 -->
-                            <div class="avatar-img-wrapper w-48 h-64 z-10 floating border-2 border-cyan-400/50">
-                                <img src="https://github.com/kimazang/noob/blob/main/1/2.png?raw=true" alt="아침을" class="w-full h-full object-cover">
+                            <!-- 2회 게스트 (체리호랑해) 썸네일 적용 -->
+                            <div class="avatar-img-wrapper w-48 h-64 z-10 floating border-2 border-pink-400/50">
+                                <img src="https://github.com/kimazang/noob/blob/main/2/noob_2_ch.png?raw=true" alt="체리호랑해" class="w-full h-full object-cover">
                             </div>
                         </div>
 
                         <!-- 텍스트 영역 -->
                         <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-center relative">
-                            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
                             
-                            <span class="text-cyan-400 font-bold pixel-font tracking-widest mb-2">VOL.01</span>
+                            <span class="text-pink-400 font-bold pixel-font tracking-widest mb-2">VOL.02</span>
                             <h2 class="text-4xl md:text-5xl font-black text-white mb-4 group-hover:text-pink-300 transition-colors">
-                                아침밥 홍보대사, <br class="hidden md:block"><span class="neon-text-blue">아침을</span>
+                                두 번째 누비 친구, <br class="hidden md:block"><span class="neon-text-pink">체리호랑해</span>
                             </h2>
                             <p class="text-gray-300 text-lg md:text-xl font-light mb-6 leading-relaxed">
-                                "여기선 캐릭터로 보이는 게 전부잖아요. 흉측한 눈이라도 가리려고 꼈던 선글라스가 캐꾸의 시작이 되었습니다 😎✨"
+                                "큐플레이 아카이브에 찾아온 두 번째 누비 친구, 체리호랑해 님의 달콤살벌한 인터뷰를 만나보세요! 🍒🐯"
                             </p>
                             
                             <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#꽁꽁_외길인생</span>
-                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#선글라스_머슬맨</span>
-                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#낭만서바이벌</span>
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#두번째_주인공</span>
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#체리호랑해</span>
+                                <span class="bg-white/10 px-3 py-1 rounded-full text-sm text-gray-300 border border-white/20">#누비인터뷰</span>
                             </div>
 
                             <button class="retro-btn w-fit px-8 py-3 rounded-full font-bold pixel-font tracking-widest text-lg cursor-pointer">
@@ -240,17 +247,37 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 
-                <!-- [반복되는 인터뷰 카드 형태] -->
-                <!-- 1회 카드 (목록형) -->
-                <a href="vol_1.html" class="block">
+                <!-- 2회 카드 (체리호랑해) -->
+                <a href="https://kimazang.github.io/noob/2" class="block">
                     <div class="glass-panel p-5 card-hover h-full flex flex-col cursor-pointer bg-black/40">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="bg-blue-900/50 text-cyan-300 px-3 py-1 rounded text-xs font-bold pixel-font border border-cyan-500/30">VOL.01</span>
-                            <span class="text-gray-400 text-xs">2024.03.15</span>
+                            <span class="bg-pink-900/50 text-pink-300 px-3 py-1 rounded text-xs font-bold pixel-font border border-pink-500/30">VOL.02</span>
+                            <span class="text-gray-400 text-xs">2024.03.19</span>
                         </div>
                         
                         <div class="flex justify-center mb-6">
-                            <div class="avatar-img-wrapper w-32 h-40">
+                            <div class="avatar-img-wrapper w-32 h-40 border border-pink-500/30">
+                                <img src="https://github.com/kimazang/noob/blob/main/2/noob_2_ch.png?raw=true" alt="체리호랑해" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="text-center flex-grow flex flex-col justify-end">
+                            <h3 class="text-2xl font-black text-white mb-2">체리호랑해</h3>
+                            <p class="text-gray-400 text-sm line-clamp-2">"두 번째 누비 친구, 체리호랑해 님의 인터뷰를 확인하세요!"</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 1회 카드 (아침을) -->
+                <a href="https://kimazang.github.io/noob/1" class="block">
+                    <div class="glass-panel p-5 card-hover h-full flex flex-col cursor-pointer bg-black/40">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-blue-900/50 text-cyan-300 px-3 py-1 rounded text-xs font-bold pixel-font border border-cyan-500/30">VOL.01</span>
+                            <span class="text-gray-400 text-xs">2024.03.05</span>
+                        </div>
+                        
+                        <div class="flex justify-center mb-6">
+                            <div class="avatar-img-wrapper w-32 h-40 border border-cyan-500/30">
                                 <img src="https://github.com/kimazang/noob/blob/main/1/2.png?raw=true" alt="아침을" class="w-full h-full object-cover">
                             </div>
                         </div>
@@ -262,29 +289,7 @@
                     </div>
                 </a>
 
-                <!-- 2회 카드 (예시 / 나중에 채워넣을 자리) -->
-                <a href="#" class="block">
-                    <div class="glass-panel p-5 card-hover h-full flex flex-col cursor-pointer bg-black/40">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="bg-pink-900/50 text-pink-300 px-3 py-1 rounded text-xs font-bold pixel-font border border-pink-500/30">VOL.02</span>
-                            <span class="text-gray-400 text-xs">2024.03.22</span>
-                        </div>
-                        
-                        <div class="flex justify-center mb-6">
-                            <div class="avatar-img-wrapper w-32 h-40 bg-gray-800 flex items-center justify-center">
-                                <!-- 가상의 게스트 이미지 텍스트 -->
-                                <span class="pixel-font text-gray-500 text-4xl">?</span>
-                            </div>
-                        </div>
-
-                        <div class="text-center flex-grow flex flex-col justify-end">
-                            <h3 class="text-2xl font-black text-white mb-2">???</h3>
-                            <p class="text-gray-400 text-sm">두 번째 인터뷰 데이터가 여기에 들어갑니다. (더미 텍스트)</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- 다음 게스트 예고 (Coming Soon) -->
+                <!-- 다음 게스트 예고 (Coming Soon / 빈칸) -->
                 <div class="glass-panel p-5 h-full flex flex-col border-dashed border-2 border-gray-600/50 bg-black/20 opacity-70">
                     <div class="flex justify-between items-center mb-4">
                         <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-xs font-bold pixel-font">NEXT</span>
